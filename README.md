@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +39,7 @@
         <section class="text-center mb-16">
             <h2 class="text-2xl md:text-3xl font-bold text-emerald-700 mb-4">내 몸의 변화, 음식으로 다스리는 지혜</h2>
             <p class="max-w-3xl mx-auto text-stone-600 leading-relaxed">
-                갱년기는 여성호르몬 감소로 인해 신체적, 심리적 변화를 겪는 자연스러운 과정입니다.<br>이 시기를 건강하게 보내기 위해 식물이 가진 놀라운 힘, <br>'파이토케미컬'을 활용한 식단이 큰 도움이 될 수 있습니다.
+                갱년기는 여성호르몬 감소로 인해 신체적, 심리적 변화를 겪는 자연스러운 과정입니다.이 시기를 건강하게 보내기 위해 식물이 가진 놀라운 힘, '파이토케미컬'을 활용한 식단이 큰 도움이 될 수 있습니다.
             </p>
         </section>
 
@@ -65,7 +66,7 @@
                         <h3 class="text-xl font-bold text-emerald-800">2. 호르몬 균형 '십자화과'</h3>
                     </div>
                     <p class="text-stone-600">
-                        브로콜리, 양배추 등은 건강한 호르몬 대사를 도와 몸의 균형을 바로잡습니다. <br>주 3회 이상 섭취를 목표로 하세요.
+                        브로콜리, 양배추 등은 건강한 호르몬 대사를 도와 몸의 균형을 바로잡습니다. 주 3회 이상 섭취를 목표로 하세요.
                     </p>
                 </div>
 
@@ -108,7 +109,7 @@
         <section class="mt-20 text-center bg-emerald-50 p-10 rounded-lg">
             <h2 class="text-2xl font-bold text-emerald-700 mb-4">오늘의 식단을 점검해보세요!</h2>
             <p class="max-w-2xl mx-auto text-stone-600 mb-6">
-                아래 버튼을 눌러 오늘 먹은 파이토케미컬 식품을 체크하고, <br>나의 건강 점수를 확인해보세요.
+                아래 버튼을 눌러 오늘 먹은 파이토케미컬 식품을 체크하고, 나의 건강 점수를 확인해보세요.
             </p>
             <button id="openPlannerBtn" class="inline-block bg-emerald-600 text-white font-bold py-3 px-8 rounded-full hover:bg-emerald-700 transition-colors duration-300 shadow-lg">
                 식단 점수 계산기 열기
@@ -162,7 +163,11 @@
             <!-- Calculate Button and Result -->
             <div class="mt-8 text-center">
                 <button id="calculateScoreBtn" class="bg-emerald-600 text-white font-bold py-3 px-10 rounded-full hover:bg-emerald-700 transition-colors duration-300 shadow-lg">점수 계산하기</button>
-                <div id="scoreResult" class="mt-6 text-2xl font-bold text-emerald-800 h-16 flex items-center justify-center"></div>
+                <!-- === MODIFIED PART START === -->
+                <div id="scoreResult" class="mt-6 min-h-[3rem] flex items-baseline justify-center flex-wrap gap-x-2 text-center">
+                    <!-- Result will be inserted here by JavaScript -->
+                </div>
+                <!-- === MODIFIED PART END === -->
             </div>
         </div>
     </section>
@@ -225,17 +230,23 @@
             });
             totalScore += Math.min(rule4Score, 20);
 
-            // Display the result
-            scoreResult.innerHTML = `🌟 당신의 오늘 파이토 점수는 <span class="text-emerald-500 text-3xl">${totalScore}</span>점 입니다!`;
+            // === MODIFIED PART START ===
+            // Build the result message as a single string
+            let message = `<span class="text-2xl font-bold text-emerald-800">🌟 당신의 오늘 파이토 점수는 <span class="text-emerald-500 text-3xl mx-1">${totalScore}</span>점 입니다!</span>`;
             
             if (totalScore >= 80) {
-                scoreResult.innerHTML += '<p class="text-lg font-medium mt-2">정말 훌륭해요! 건강한 하루를 보내셨네요.</p>';
+                message += '<span class="text-lg font-medium text-stone-700">정말 훌륭해요! 건강한 하루를 보내셨네요.</span>';
             } else if (totalScore >= 50) {
-                scoreResult.innerHTML += '<p class="text-lg font-medium mt-2">좋아요! 조금만 더 신경 쓰면 완벽하겠어요.</p>';
+                message += '<span class="text-lg font-medium text-stone-700">좋아요! 조금만 더 신경 쓰면 완벽하겠어요.</span>';
             } else {
-                scoreResult.innerHTML += '<p class="text-lg font-medium mt-2">시작이 반이에요! 내일은 더 건강하게 채워봐요.</p>';
+                message += '<span class="text-lg font-medium text-stone-700">시작이 반이에요! 내일은 더 건강하게 채워봐요.</span>';
             }
+            
+            // Display the result in one line
+            scoreResult.innerHTML = message;
+            // === MODIFIED PART END ===
         });
     </script>
 </body>
 </html>
+
